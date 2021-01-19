@@ -1,0 +1,15 @@
+{
+    "skip_files":
+    [
+      "test",
+      "lib/api_banking.ex",
+      "lib/api_banking_web.ex",
+      "lib/api_banking/application.ex",
+      "lib/api_banking/repo.ex",
+      "lib/api_banking_web/endpoint.ex",
+      "lib/api_banking_web/gettext.ex",
+      "lib/api_banking_web/telemetry.ex",
+      "lib/api_banking_web/views/error_helpers.ex"
+    ]
+  }
+  
