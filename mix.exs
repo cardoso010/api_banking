@@ -32,7 +32,7 @@ defmodule ApiBanking.MixProject do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "test/factories"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -51,7 +51,9 @@ defmodule ApiBanking.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.13.4", only: :test}
+      {:excoveralls, "~> 0.13.4", only: :test},
+      {:bcrypt_elixir, "~> 2.3"},
+      {:ex_machina, "~> 2.5", only: :test}
     ]
   end
 
