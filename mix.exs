@@ -53,7 +53,10 @@ defmodule ApiBanking.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.13.4", only: :test},
       {:argon2_elixir, "~> 2.4"},
-      {:ex_machina, "~> 2.5", only: :test}
+      {:ex_machina, "~> 2.5", only: :test},
+      {:guardian, "~> 2.1"},
+      {:comeonin, "~> 5.3"},
+      {:bcrypt_elixir, "~> 2.3"}
     ]
   end
 
