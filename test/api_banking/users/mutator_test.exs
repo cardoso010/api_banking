@@ -30,7 +30,7 @@ defmodule ApiBanking.Users.MutatorTest do
       assert {:ok, %User{} = user} = Mutator.create(@valid_attrs)
       assert user.email == "some@email.com"
       assert user.name == "some name"
-      assert Bcrypt.verify_pass("some password", user.password_hash)
+      assert Argon2.verify_pass("some password", user.password_hash)
     end
 
     test "create/1 with invalid data returns error changeset" do
@@ -44,7 +44,7 @@ defmodule ApiBanking.Users.MutatorTest do
       assert {:ok, %User{} = user} = Mutator.update(user, @update_attrs)
       assert user.email == "someupdated@email.com"
       assert user.name == "some updated name"
-      assert Bcrypt.verify_pass("some updated password", user.password_hash)
+      assert Argon2.verify_pass("some updated password", user.password_hash)
     end
 
     test "update/2 with invalid data returns error changeset" do
