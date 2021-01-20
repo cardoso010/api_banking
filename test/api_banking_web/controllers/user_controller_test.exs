@@ -1,15 +1,15 @@
 defmodule ApiBankingWeb.UserControllerTest do
   use ApiBankingWeb.ConnCase, async: true
-
+  alias ApiBanking.Accounts.Mutator, as: AccountMutator
   alias ApiBanking.{User, Users.Mutator}
 
   @create_attrs %{
-    email: "some email",
+    email: "some@email.com",
     name: "some name",
     password: "some password"
   }
   @update_attrs %{
-    email: "some updated email",
+    email: "someupdated@email.com",
     name: "some updated name",
     password: "some updated password"
   }
@@ -17,6 +17,7 @@ defmodule ApiBankingWeb.UserControllerTest do
 
   def fixture(:user) do
     {:ok, user} = Mutator.create(@create_attrs)
+    AccountMutator.create_with_assoc(user)
     user
   end
 
@@ -40,8 +41,9 @@ defmodule ApiBankingWeb.UserControllerTest do
 
       assert %{
                "id" => ^id,
-               "email" => "some email",
-               "name" => "some name"
+               "email" => "some@email.com",
+               "name" => "some name",
+               "amount" => 1.0e3
              } = json_response(conn, 200)["data"]
     end
 
@@ -62,8 +64,9 @@ defmodule ApiBankingWeb.UserControllerTest do
 
       assert %{
                "id" => ^id,
-               "email" => "some updated email",
-               "name" => "some updated name"
+               "email" => "someupdated@email.com",
+               "name" => "some updated name",
+               "amount" => 1.0e3
              } = json_response(conn, 200)["data"]
     end
 
