@@ -1,19 +1,21 @@
 defmodule ApiBankingWeb.UserControllerTest do
   use ApiBankingWeb.ConnCase, async: true
   alias ApiBanking.Accounts.Mutator, as: AccountMutator
-  alias ApiBanking.{User, Users.Mutator}
+  alias ApiBanking.{Auth.Guardian, User, Users.Mutator}
 
   @create_attrs %{
     email: "some@email.com",
     name: "some name",
-    password: "some password"
+    password: "some password",
+    password_confirmation: "some password"
   }
   @update_attrs %{
     email: "someupdated@email.com",
     name: "some updated name",
-    password: "some updated password"
+    password: "some updated password",
+    password_confirmation: "some updated password"
   }
-  @invalid_attrs %{email: nil, name: nil, password: nil}
+  @invalid_attrs %{email: nil, name: nil, password: nil, password_confirmation: nil}
 
   def fixture(:user) do
     {:ok, user} = Mutator.create(@create_attrs)
@@ -22,13 +24,23 @@ defmodule ApiBankingWeb.UserControllerTest do
   end
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    user_auth = insert(:user)
+
+    {:ok, token, _} = Guardian.encode_and_sign(user_auth, %{}, token_type: :access)
+
+    conn =
+      conn
+      |> put_req_header("accept", "application/json")
+      |> put_req_header("authorization", "Bearer " <> token)
+
+    {:ok, conn: conn}
   end
 
   describe "index" do
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+
+      assert is_list(json_response(conn, 200)["data"])
     end
   end
 
@@ -56,8 +68,12 @@ defmodule ApiBankingWeb.UserControllerTest do
   describe "update user" do
     setup [:create_user]
 
-    test "renders user when data is valid", %{conn: conn, user: %User{id: id} = user} do
+    test "renders user when data is valid", %{
+      conn: conn,
+      user: %User{id: id} = user
+    } do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.user_path(conn, :show, id))
@@ -72,6 +88,7 @@ defmodule ApiBankingWeb.UserControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end

@@ -4,13 +4,19 @@ defmodule ApiBanking.Users.MutatorTest do
   alias ApiBanking.User
   alias ApiBanking.Users.{Loader, Mutator}
 
-  @valid_attrs %{email: "some@email.com", name: "some name", password: "some password"}
+  @valid_attrs %{
+    email: "some@email.com",
+    name: "some name",
+    password: "some password",
+    password_confirmation: "some password"
+  }
   @update_attrs %{
     email: "someupdated@email.com",
     name: "some updated name",
-    password: "some updated password"
+    password: "some updated password",
+    password_confirmation: "some updated password"
   }
-  @invalid_attrs %{email: nil, name: nil, password: nil}
+  @invalid_attrs %{email: nil, name: nil, password: nil, password_confirmation: nil}
 
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
@@ -22,7 +28,7 @@ defmodule ApiBanking.Users.MutatorTest do
   end
 
   def user_without_password(attrs \\ %{}) do
-    %{user_fixture(attrs) | password: nil}
+    %{user_fixture(attrs) | password: nil, password_confirmation: nil}
   end
 
   describe "create/1" do
