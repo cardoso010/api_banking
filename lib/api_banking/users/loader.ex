@@ -1,8 +1,9 @@
 defmodule ApiBanking.Users.Loader do
-  alias ApiBanking.{User, Loaders.Commands, Repo}
+  alias ApiBanking.{Loaders.Commands, Repo, User}
 
-  def get(uuid) do
-    Commands.get(User, uuid)
+  def get_with_account(uuid) do
+    Commands.get!(User, uuid)
+    |> Repo.preload(:account)
   end
 
   @doc """

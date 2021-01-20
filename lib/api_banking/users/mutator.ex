@@ -1,5 +1,5 @@
 defmodule ApiBanking.Users.Mutator do
-  alias ApiBanking.{User, Repo}
+  alias ApiBanking.{Repo, User}
 
   @doc """
   Creates a user.

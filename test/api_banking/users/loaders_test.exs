@@ -4,15 +4,15 @@ defmodule ApiBanking.Users.LoadersTest do
   alias ApiBanking.Users.Loader
   alias Ecto.UUID
 
-  describe "get/1" do
+  describe "get!/1" do
     test "return user by uuid" do
       user_one = insert(:user) |> reset_password()
 
-      assert Loader.get(user_one.id) == user_one
+      assert Loader.get!(user_one.id) == user_one
     end
 
     test "return nil when not exists" do
-      assert Loader.get(UUID.generate()) == nil
+      assert_raise Ecto.NoResultsError, fn -> Loader.get!(UUID.generate()) end
     end
   end
 
