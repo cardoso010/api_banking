@@ -23,6 +23,7 @@ defmodule ApiBankingWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import ApiBankingWeb.ConnCase
+      import ApiBanking.Factory
 
       alias ApiBankingWeb.Router.Helpers, as: Routes
 

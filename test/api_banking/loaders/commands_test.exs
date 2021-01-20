@@ -1,8 +1,8 @@
 defmodule ApiBanking.Loaders.CommandsTest do
   use ApiBanking.DataCase, async: true
 
-  alias ApiBanking.User
   alias ApiBanking.Loaders.Commands
+  alias ApiBanking.User
   alias Ecto.Query
 
   describe "get/1" do
@@ -70,6 +70,6 @@ defmodule ApiBanking.Loaders.CommandsTest do
   end
 
   defp reset_password(user) do
-    %{user | password: nil}
+    %{user | password: nil, password_confirmation: nil}
   end
 end

@@ -14,7 +14,8 @@
   ApiBanking.Users.Mutator.create(%{
     name: "Admin",
     email: "admin@admin.com",
-    password: "admin"
+    password: "admin",
+    password_confirmation: "admin"
   })
 
 admin
@@ -24,7 +25,8 @@ admin
   ApiBanking.Users.Mutator.create(%{
     name: "User1",
     email: "user1@user1.com",
-    password: "user1"
+    password: "user1",
+    password_confirmation: "user1"
   })
 
 user1

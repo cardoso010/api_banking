@@ -8,8 +8,9 @@ defmodule ApiBanking.User do
   schema "users" do
     field :email, :string, null: false
     field :name, :string
-    field :password, :string, virtual: true
     field :password_hash, :string
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     has_one :account, ApiBanking.Account, on_delete: :delete_all
 
     timestamps()
@@ -18,9 +19,10 @@ defmodule ApiBanking.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, [:name, :email, :password, :password_confirmation])
+    |> validate_required([:name, :email, :password, :password_confirmation])
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
+    |> validate_confirmation(:password)
     |> unique_constraint(:email)
     |> put_password_hash()
   end
@@ -28,7 +30,7 @@ defmodule ApiBanking.User do
   defp put_password_hash(
          %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset
        ) do
-    change(changeset, Bcrypt.add_hash(password))
+    change(changeset, Argon2.add_hash(password))
   end
 
   defp put_password_hash(changeset) do

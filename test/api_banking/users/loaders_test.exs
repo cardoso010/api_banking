@@ -33,6 +33,6 @@ defmodule ApiBanking.Users.LoadersTest do
   end
 
   defp reset_password(user) do
-    %{user | password: nil}
+    %{user | password: nil, password_confirmation: nil}
   end
 end

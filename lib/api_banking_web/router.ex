@@ -1,12 +1,24 @@
 defmodule ApiBankingWeb.Router do
   use ApiBankingWeb, :router
 
+  alias ApiBanking.Auth.Guardian
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ApiBankingWeb do
+  pipeline :jwt_authenticated do
+    plug Guardian.AuthPipeline
+  end
+
+  scope "/api/v1", ApiBankingWeb do
     pipe_through :api
+
+    post "/auth/sign_in", AuthController, :sign_in
+  end
+
+  scope "/api/v1", ApiBankingWeb do
+    pipe_through [:api, :jwt_authenticated]
 
     resources "/users", UserController, except: [:new, :edit]
   end
