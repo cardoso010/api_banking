@@ -27,3 +27,5 @@ config :api_banking, ApiBankingWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :bcrypt_elixir, :log_rounds, 4
