@@ -3,6 +3,7 @@ defmodule ApiBanking.Repo.Migrations.CreateAccountLogs do
 
   def change do
     MovimentType.create_type()
+
     create table(:account_logs, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :movement_type, :moviment_type, null: false
