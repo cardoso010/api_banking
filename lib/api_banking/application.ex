@@ -5,6 +5,8 @@ defmodule ApiBanking.Application do
 
   use Application
 
+  alias ApiBanking.Utils.Email
+
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
@@ -14,9 +16,10 @@ defmodule ApiBanking.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: ApiBanking.PubSub},
       # Start the Endpoint (http/https)
-      ApiBankingWeb.Endpoint
+      ApiBankingWeb.Endpoint,
       # Start a worker by calling: ApiBanking.Worker.start_link(arg)
       # {ApiBanking.Worker, arg}
+      Email
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
