@@ -29,7 +29,7 @@ defmodule ApiBanking.Users.Loader do
 
   ## Examples
 
-      iex> list_users()
+      iex> all()
       [%User{}, ...]
 
   """
@@ -43,7 +43,7 @@ defmodule ApiBanking.Users.Loader do
 
   ## Examples
 
-      iex> list_users(%{email: "teste@teste.com"})
+      iex> all_by(%{email: "teste@teste.com"})
       [%User{}, ...]
 
   """
