@@ -1,4 +1,5 @@
 defmodule ApiBanking.Account do
+  @moduledoc "Schema for account table"
   use Ecto.Schema
   import Ecto.Changeset
 
