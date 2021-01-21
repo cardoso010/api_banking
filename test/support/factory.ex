@@ -3,6 +3,7 @@ defmodule ApiBanking.Factory do
 
   use ApiBanking.UserFactory
   use ApiBanking.AccountFactory
+  use ApiBanking.AccountLogFactory
 
   def id, do: Ecto.UUID.generate()
 end
