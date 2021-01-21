@@ -21,6 +21,7 @@ defmodule ApiBankingWeb.Router do
     pipe_through [:api, :jwt_authenticated]
 
     resources "/users", UserController, except: [:new, :edit]
+    put "/accounts/withdraw", AccountController, :withdraw
   end
 
   # Enables LiveDashboard only for development
