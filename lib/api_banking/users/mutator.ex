@@ -6,10 +6,10 @@ defmodule ApiBanking.Users.Mutator do
 
   ## Examples
 
-      iex> create_user(%{field: value})
+      iex> create(%{field: value})
       {:ok, %User{}}
 
-      iex> create_user(%{field: bad_value})
+      iex> create(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -56,10 +56,10 @@ defmodule ApiBanking.Users.Mutator do
 
   ## Examples
 
-      iex> delete_user(user)
+      iex> delete(user)
       {:ok, %User{}}
 
-      iex> delete_user(user)
+      iex> delete(user)
       {:error, %Ecto.Changeset{}}
 
   """
