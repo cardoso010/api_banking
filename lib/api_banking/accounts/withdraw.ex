@@ -1,30 +1,29 @@
 defmodule ApiBanking.Accounts.Withdraw do
-  alias ApiBanking.{Account, Accounts.Loader, Accounts.Mutator, Utils.Email}
+  @moduledoc """
+  Module to do withdraw from user's account
+  """
+  alias ApiBanking.{
+    Account,
+    Accounts.AccountRules,
+    Accounts.Loader,
+    Accounts.Mutator,
+    Utils.Email
+  }
+
   alias ApiBanking.AccountLogs.Mutator, as: AccountLogsMutator
 
   @doc """
   Process to do a withdraw
   """
-  def withdraw(user_id, amount) when is_binary(user_id) and is_number(amount) do
-    Loader.get_by_user(user_id)
-    |> validate_amount(amount)
+  def withdraw(origin_id, amount) when is_binary(origin_id) and is_number(amount) do
+    Loader.get_by_user(origin_id)
+    |> AccountRules.validate_amount(amount)
     |> withdraw_from_account()
     |> save_log()
     |> send_email()
   end
 
   def withdraw(_, _), do: {:error, "Invalid type of data"}
-
-  @doc """
-  Validate if value passed is higher than account's amount
-  """
-  def validate_amount(%Account{amount: amount} = account, value) do
-    if amount >= value do
-      {:ok, account, value}
-    else
-      {:error, "Value is more than your amount"}
-    end
-  end
 
   @doc """
   To do a withdraw from a account

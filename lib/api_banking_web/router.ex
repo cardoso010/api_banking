@@ -14,14 +14,16 @@ defmodule ApiBankingWeb.Router do
   scope "/api/v1", ApiBankingWeb do
     pipe_through :api
 
+    post "/users", UserController, :create
     post "/auth/sign_in", AuthController, :sign_in
   end
 
   scope "/api/v1", ApiBankingWeb do
     pipe_through [:api, :jwt_authenticated]
 
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, except: [:create, :new, :edit]
     put "/accounts/withdraw", AccountController, :withdraw
+    put "/accounts/transfer", AccountController, :transfer
   end
 
   # Enables LiveDashboard only for development
