@@ -1,14 +1,27 @@
 defmodule ApiBankingWeb.AccountController do
   use ApiBankingWeb, :controller
 
-  alias ApiBanking.Accounts.Withdraw
+  alias ApiBanking.Accounts.{Transfer, Withdraw}
 
   action_fallback ApiBankingWeb.FallbackController
 
   def withdraw(conn, %{"user_id" => user_id, "amount" => amount}) do
     case Withdraw.withdraw(user_id, amount) do
       {:ok, account} ->
-        conn |> render("account.json", account: account)
+        conn |> render("withdraw.json", account: account)
+
+      _ = error ->
+        error
+    end
+  end
+
+  def transfer(conn, %{"sender_id" => sender_id, "receiver_id" => receiver_id, "amount" => amount}) do
+    case Transfer.transfer(sender_id, receiver_id, amount) do
+      :ok ->
+        conn
+        |> render("transfer.json",
+          transfer: %{sender_id: sender_id, receiver_id: receiver_id, amount: amount}
+        )
 
       _ = error ->
         error

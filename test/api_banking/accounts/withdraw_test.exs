@@ -26,23 +26,12 @@ defmodule ApiBanking.Accounts.WithdrawTest do
     end
   end
 
-  describe "validate_amount/2" do
+  describe "withdraw_from_account/1" do
     test "to do a withdraw from user's account", %{account: account} do
-      assert {:ok, %Account{}, 500} = Withdraw.validate_amount(account, 500)
-    end
+      assert {:ok, %Account{} = account, 500} =
+               Withdraw.withdraw_from_account({:ok, account, 500})
 
-    test "pass a higher value", %{account: account} do
-      assert {:error, "Value is more than your amount"} = Withdraw.validate_amount(account, 2000)
-    end
-  end
-
-  describe "withdraw_from_account/2" do
-    test "to do a withdraw from user's account", %{account: account} do
-      assert {:ok, %Account{}, 500} = Withdraw.validate_amount(account, 500)
-    end
-
-    test "pass a higher value", %{account: account} do
-      assert {:error, "Value is more than your amount"} = Withdraw.validate_amount(account, 2000)
+      assert account.amount == 500
     end
   end
 end
