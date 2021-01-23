@@ -126,4 +126,53 @@ defmodule ApiBankingWeb.AccountControllerTest do
       assert %{"error" => "Invalid type of data"} = json_response(conn, 400)
     end
   end
+
+  # describe "backoffice" do
+  #   setup %{conn: conn} do
+  #     user = insert(:user)
+  #     account = insert(:account, user_id: user.id)
+  #     insert(:account_log, origin_id: account.id)
+  #     insert(:account_log, origin_id: account.id)
+  #     insert(:account_log, origin_id: account.id)
+
+  #     {:ok, token, _} = Guardian.encode_and_sign(user, %{}, token_type: :access)
+
+  #     conn =
+  #       conn
+  #       |> put_req_header("accept", "application/json")
+  #       |> put_req_header("authorization", "Bearer " <> token)
+
+  #     {:ok, conn: conn, user: user}
+  #   end
+
+  #   test "get report by day", %{conn: conn} do
+  #     today = Timex.now()
+
+  #     attrs = %{
+  #       year: today.year,
+  #       month: today.month,
+  #       day: today.day
+  #     }
+
+  #     conn = get(conn, Routes.account_path(conn, :backoffice), attrs)
+
+  #     assert %{"total per day" => 1.5e3} = json_response(conn, 200)
+  #   end
+
+  #   test "get report by month", %{conn: conn} do
+  #     today = Timex.now()
+  #     attrs = %{year: today.year, month: today.month}
+  #     conn = get(conn, Routes.account_path(conn, :backoffice), attrs)
+
+  #     assert %{"total per month" => 1.5e3} = json_response(conn, 200)
+  #   end
+
+  #   test "get report by year", %{conn: conn} do
+  #     today = Timex.now()
+  #     attrs = %{year: today.year}
+  #     conn = get(conn, Routes.account_path(conn, :backoffice), attrs)
+
+  #     assert %{"total per month" => 1.5e3} = json_response(conn, 200)
+  #   end
+  # end
 end

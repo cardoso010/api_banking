@@ -57,7 +57,8 @@ defmodule ApiBanking.MixProject do
       {:guardian, "~> 2.1"},
       {:comeonin, "~> 5.3"},
       {:bcrypt_elixir, "~> 2.3"},
-      {:ecto_enum, "~> 1.4"}
+      {:ecto_enum, "~> 1.4"},
+      {:timex, "~> 3.6"}
     ]
   end
 

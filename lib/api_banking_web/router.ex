@@ -24,6 +24,7 @@ defmodule ApiBankingWeb.Router do
     resources "/users", UserController, except: [:create, :new, :edit]
     put "/accounts/withdraw", AccountController, :withdraw
     put "/accounts/transfer", AccountController, :transfer
+    get "/accounts/backoffice", AccountController, :backoffice
   end
 
   # Enables LiveDashboard only for development
