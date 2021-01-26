@@ -1,4 +1,7 @@
 defmodule ApiBanking.Utils.Email do
+  @moduledoc """
+  Module to "send" email
+  """
   use GenServer
   require Logger
 

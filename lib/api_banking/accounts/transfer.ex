@@ -48,9 +48,9 @@ defmodule ApiBanking.Accounts.Transfer do
   @doc """
   To do a withdraw from a account
   """
-  def withdraw_from_account(
-        {:ok, %Account{amount: amount} = origin_account, %Account{} = destiny_account, value}
-      ) do
+  defp withdraw_from_account(
+         {:ok, %Account{amount: amount} = origin_account, %Account{} = destiny_account, value}
+       ) do
     new_amount = amount - value
 
     case Mutator.update(origin_account, %{amount: new_amount}) do
@@ -59,14 +59,14 @@ defmodule ApiBanking.Accounts.Transfer do
     end
   end
 
-  def withdraw_from_account({:error, _} = error), do: error
+  defp withdraw_from_account({:error, _} = error), do: error
 
   @doc """
   To do a transfer to a destiny account
   """
-  def transfer_to_account(
-        {:ok, %Account{} = origin_account, %Account{amount: amount} = destiny_account, value}
-      ) do
+  defp transfer_to_account(
+         {:ok, %Account{} = origin_account, %Account{amount: amount} = destiny_account, value}
+       ) do
     new_amount = amount + value
 
     case Mutator.update(destiny_account, %{amount: new_amount}) do
@@ -75,7 +75,7 @@ defmodule ApiBanking.Accounts.Transfer do
     end
   end
 
-  def transfer_to_account({:error, _} = error), do: error
+  defp transfer_to_account({:error, _} = error), do: error
 
   defp save_log({:ok, %Account{id: origin_id}, %Account{id: destiny_id}, amount}) do
     case AccountLogsMutator.create_transfer(origin_id, destiny_id, amount) do

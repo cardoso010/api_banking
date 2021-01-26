@@ -11,7 +11,7 @@ defmodule ApiBankingWeb.Endpoint do
   ]
 
   socket "/socket", ApiBankingWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
     longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
@@ -24,7 +24,7 @@ defmodule ApiBankingWeb.Endpoint do
     at: "/",
     from: :api_banking,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt swagger.json)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

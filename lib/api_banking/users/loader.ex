@@ -1,4 +1,7 @@
 defmodule ApiBanking.Users.Loader do
+  @moduledoc """
+  Module to consult data from User table
+  """
   alias ApiBanking.{Loaders.Commands, Repo, User}
 
   def get_with_account(uuid) do

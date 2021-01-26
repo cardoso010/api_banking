@@ -1,16 +1,37 @@
 defmodule ApiBanking.AccountLogs.Backoffice do
   @moduledoc """
-  Module to get a report of transactions
+  Defines  a BackOffice.
+
+  Module responsible for containing all the rules to generate the backoffice report.
+  It is possible to obtain a transaction total per day, month, year and total.
   """
   alias ApiBanking.AccountLogs.Loader
   alias ApiBanking.Utils.DateTimeHelper
 
   @doc """
   Generate report by it's filter
-  if all values ​​have been filled in, a report for the day will be generated,
+  If all values ​​have been filled in, a report for the day will be generated,
   if it is year and month, a report for the month will be generated and
   if only the year is filled in, the report for the year will be generated.
   if none is filled, the general report will be generated.
+
+  ## Examples
+
+      Total
+      iex> report(nil, nil, nil)
+      {:ok, %{"total" => 200}}
+
+      By year
+      iex> report(2021, nil, nil)
+      {:ok, %{"total per year" => 200}}
+
+      By month
+      iex> report(2021, 02, nil)
+      {:ok, %{"total per month" => 200}}
+
+      By day
+      iex> report(2021, 02, 01)
+      {:ok, %{"total per day" => 200}}
   """
   def report(nil, nil, nil) do
     total = Loader.get_total_sum()
