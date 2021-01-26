@@ -1,20 +1,56 @@
 # ApiBanking
 
 [![Build Status](https://github.com/cardoso010/api_banking/workflows/TEST/badge.svg?branch=main)](https://github.com/cardoso010/api_banking/actions)
+[![Build Status](https://github.com/cardoso010/api_banking/workflows/DEPLOY/badge.svg?branch=main)](https://github.com/cardoso010/api_banking/actions)
 
-To start your Phoenix server:
+## Requirements
 
-- Setup the project with `mix setup`
-- Start Phoenix endpoint with `mix phx.server`
+Resources that must be installed for this project to work.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+- [docker](https://docs.docker.com/install/)
+- [docker-compose](https://docs.docker.com/compose/install/)
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Setup
 
-## Learn more
+This project uses docker-compose.
 
-- Official website: https://www.phoenixframework.org/
-- Guides: https://hexdocs.pm/phoenix/overview.html
-- Docs: https://hexdocs.pm/phoenix
-- Forum: https://elixirforum.com/c/phoenix-forum
-- Source: https://github.com/phoenixframework/phoenix
+First of all you need to build the container
+
+```shell
+docker-compose build
+```
+
+Now is necessary that you run setup to get dependencies, create database, create migrations and run seed.
+
+```shell
+docker-compose run web mix setup
+```
+
+Then you up your container
+
+```shell
+docker-compose up
+```
+
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser
+or you can visit [`apibanking.herokuapp.com`](https://apibanking.herokuapp.com/) as well.
+
+Exec tests
+
+```shell
+docker-compose run -e "MIX_ENV=test" web mix test
+```
+
+Exec coveralls
+
+```shell
+docker-compose run -e "MIX_ENV=test" web mix coveralls
+```
+
+Generate Swagger Docs
+
+```shell
+docker-compose run web mix phx.swagger.generate
+```
+
+You can visit Swagger [`localhost:4000/api/swagger/index.html`](http://http://localhost:4000/api/swagger/index.html) from your browser
