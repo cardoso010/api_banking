@@ -5,9 +5,9 @@ defmodule ApiBanking.MixProject do
     [
       app: :api_banking,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.11.1",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:phoenix_swagger],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -58,7 +58,12 @@ defmodule ApiBanking.MixProject do
       {:comeonin, "~> 5.3"},
       {:bcrypt_elixir, "~> 2.3"},
       {:ecto_enum, "~> 1.4"},
-      {:timex, "~> 3.6"}
+      {:timex, "~> 3.6"},
+      {:earmark, "~> 1.4", only: :dev},
+      {:ex_doc, "~> 0.23.0", only: :dev},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.5"},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 
