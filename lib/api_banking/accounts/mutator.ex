@@ -1,4 +1,7 @@
 defmodule ApiBanking.Accounts.Mutator do
+  @moduledoc """
+  Module to insert ou update data from Account table
+  """
   alias ApiBanking.{Account, Repo, User}
 
   @doc """

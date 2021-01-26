@@ -1,4 +1,7 @@
 defmodule ApiBanking.AccountLogs.Loader do
+  @moduledoc """
+  Module to consult data from AccountLog table
+  """
   import Ecto.Query
   alias ApiBanking.{AccountLog, Loaders.Commands, Repo}
 

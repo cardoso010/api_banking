@@ -1,6 +1,17 @@
 version: "3.6"
+
+x-networks: &default-networks
+  networks:
+    - app-network
+
+networks:
+  app-network:
+    driver: bridge
+    name: "api-banking-network"
+
 services:
   db:
+    <<: *default-networks
     image: "postgres:11-alpine"
     container_name: "api_banking_db"
     environment:
@@ -14,12 +25,11 @@ services:
     ports:
       - 5432:5432
   web:
+    <<: *default-networks
     build: .
     container_name: "api_banking_web"
     depends_on:
       - db
-    environment:
-      MIX_ENV: dev
     env_file:
       - .env
     ports:

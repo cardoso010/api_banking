@@ -1,4 +1,7 @@
 defmodule ApiBanking.Accounts.Loader do
+  @moduledoc """
+  Module to consult data from Account table
+  """
   alias ApiBanking.{Account, Loaders.Commands, Repo}
 
   @doc """

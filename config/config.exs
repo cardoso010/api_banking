@@ -32,6 +32,18 @@ config :api_banking, ApiBanking.Auth.Guardian,
   issuer: "ApiBanking",
   secret_key: "cdYuBCjXViq7P0ITukMxWjqOcQY9mzndodfedfze6Nqd5IPpgz34528rex/QaPGg"
 
+config :api_banking, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      # phoenix routes will be converted to swagger paths
+      router: ApiBankingWeb.Router,
+      # (optional) endpoint config used to set host, port and https schemes.
+      endpoint: ApiBankingWeb.Endpoint
+    ]
+  }
+
+config :phoenix_swagger, json_library: Jason
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
