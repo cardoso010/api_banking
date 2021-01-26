@@ -52,7 +52,7 @@ defmodule ApiBankingWeb.Router do
 
   def swagger_info do
     %{
-      schemes: ["https"],
+      schemes: ["https", "http"],
       info: %{
         version: "1.0",
         title: "Api Banking",
